@@ -60,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
             mAut.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if(task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "La sesion ha iniciado exitosamente", Toast.LENGTH_SHORT).show();
-
+                        //esto es una prueba para github
                     }
                     else {
                         Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
