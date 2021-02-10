@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "753891971184",
+    "firebase_url": "https://elohim-c6e53-default-rtdb.firebaseio.com",
+    "project_id": "elohim-c6e53",
+    "storage_bucket": "elohim-c6e53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753891971184:android:1c85f2fead71924b9da4b5",
+        "android_client_info": {
+          "package_name": "com.elohim.ElohimAplicacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753891971184-sdomjkmr6gqckiddb3tdktrblsfpvetj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elohim.ElohimAplicacion",
+            "certificate_hash": "4632163ff453326a6ee658e121278a5486d34572"
+          }
+        },
+        {
+          "client_id": "753891971184-a1nhm3c9mtebjvtdldm2jg5jajtg2mf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsFmcQHODDuOdZLq-24oZXNttM4PF0gg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753891971184-a1nhm3c9mtebjvtdldm2jg5jajtg2mf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
