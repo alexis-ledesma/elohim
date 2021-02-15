@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aplicacion oficial de servicios a domicilio de la Panaderia HELOHIM"
+            android:text="Aplicacion oficial de servicios a domicilio de la Panaderia ELOHIM"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:layout_margin="40dp"

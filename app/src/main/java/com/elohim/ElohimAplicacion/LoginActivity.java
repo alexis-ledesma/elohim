@@ -2,7 +2,9 @@ package com.elohim.ElohimAplicacion;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import dmax.dialog.SpotsDialog;
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText mTextInputEmail;
@@ -26,11 +29,18 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAut;
     DatabaseReference mDatabase;
 
+    AlertDialog mDialog;
+
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword = findViewById(R.id.textInputPassword);
@@ -38,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAut = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDialog = new SpotsDialog.Builder().setContext(LoginActivity.this).setMessage("Espere un momento porfavor").build();
 
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!email.isEmpty() && !password.isEmpty()) {
 
          if(password.length() >= 6) {
+             mDialog.show();
+
             mAut.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -66,12 +80,19 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                     }
+                    mDialog.dismiss();
                 }
             });
 
 
          }
+         else{
+             Toast.makeText(this, "La Contraseña debe incluir almenos 6 caracteres", Toast.LENGTH_SHORT).show();
+         }
 
+        }
+        else{
+            Toast.makeText(this, "La Contraseña y el Correo son obligatorios", Toast.LENGTH_SHORT).show();
         }
     }
 }

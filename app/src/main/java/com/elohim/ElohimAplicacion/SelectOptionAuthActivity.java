@@ -13,6 +13,7 @@ public class SelectOptionAuthActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     Button mButtonIniciarSesion;
+    Button mButtonRegistrarse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +26,26 @@ public class SelectOptionAuthActivity extends AppCompatActivity {
 
 
         mButtonIniciarSesion = findViewById(R.id.btnIniciarSesion);
+        mButtonRegistrarse = findViewById(R.id.btnRegistrarse);
         mButtonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToLogin();
             }
         });
+        mButtonRegistrarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRegister();
+            }
+        });
     }
     public void goToLogin() {
         Intent intent = new Intent(SelectOptionAuthActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+    public void goToRegister() {
+        Intent intent = new Intent(SelectOptionAuthActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
