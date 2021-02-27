@@ -4,11 +4,16 @@ public class Trabajador {
     String id;
     String name;
     String email;
+    String VehiculoMarca;
+    String PlacaVehiculo;
 
-    public Trabajador(String id, String name, String email) {
+
+    public Trabajador(String id, String name, String email, String vehiculoMarca, String placaVehiculo) {
         this.id = id;
         this.name = name;
         this.email = email;
+        VehiculoMarca = vehiculoMarca;
+        PlacaVehiculo = placaVehiculo;
     }
 
     public String getId() {
@@ -33,5 +38,21 @@ public class Trabajador {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getVehiculoMarca() {
+        return VehiculoMarca;
+    }
+
+    public void setVehiculoMarca(String vehiculoMarca) {
+        VehiculoMarca = vehiculoMarca;
+    }
+
+    public String getPlacaVehiculo() {
+        return PlacaVehiculo;
+    }
+
+    public void setPlacaVehiculo(String placaVehiculo) {
+        PlacaVehiculo = placaVehiculo;
     }
 }

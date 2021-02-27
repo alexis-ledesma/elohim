@@ -1,4 +1,4 @@
-package com.elohim.ElohimAplicacion;
+package com.elohim.ElohimAplicacion.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.elohim.ElohimAplicacion.R;
+import com.elohim.ElohimAplicacion.activities.cliente.MapClientActivity;
+import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +47,24 @@ public class MainActivity extends AppCompatActivity {
                 goToSelectAuth();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            String user = mPref.getString("user", "");
+            if (user.equals("cliente")){
+                Intent intent = new Intent(MainActivity.this, MapClientActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(MainActivity.this, MapTrabajadorActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }
     }
 
     private void goToSelectAuth() {
