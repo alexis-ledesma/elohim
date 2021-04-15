@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElohimAplicacion">
-        <activity android:name=".activities.cliente.DetailRequestActivity"
-            android:parentActivityName=".activities.cliente.MapClientActivity">
-        </activity>
+        <activity android:name=".activities.cliente.RequestTrabajadorActivity"></activity>
+        <activity
+            android:name=".activities.cliente.DetailRequestActivity"
+            android:parentActivityName=".activities.cliente.MapClientActivity"></activity>
         <activity android:name=".activities.trabajador.MapTrabajadorActivity" />
         <activity android:name=".activities.cliente.MapClientActivity" />
         <activity android:name=".activities.trabajador.RegisterTrabajadorActivity" />

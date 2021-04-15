@@ -43,7 +43,33 @@
                 android:id="@+id/TextViewOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Carrera: "
+                android:text=""
+                android:textSize="16sp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destino: "
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/TextViewDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
                 android:textSize="16sp">
 
             </TextView>
@@ -65,23 +91,59 @@
             android:padding="20dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Destino: "
-                android:textSize="16sp"
-                android:textStyle="bold">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiempo: "
+                    android:textSize="16sp"
+                    android:textStyle="bold">
 
-            <TextView
-                android:id="@+id/TextViewDestination"
-                android:layout_width="wrap_content"
+                </TextView>
+
+                <TextView
+                    android:id="@+id/TextViewTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Carrera: "
-                android:textSize="16sp">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distancia: "
+                    android:textSize="16sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/TextViewDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp">
+
+                </TextView>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

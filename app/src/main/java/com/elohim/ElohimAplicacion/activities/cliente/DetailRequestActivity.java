@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.elohim.ElohimAplicacion.R;
 import com.elohim.ElohimAplicacion.includes.MyToolbar;
@@ -43,6 +47,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private double mExtraOriginLng;
     private double mExtraDestinationLat;
     private double mExtraDestinationLng;
+    private String mExtraOrigin;
+    private String mExtraDestination;
 
     private LatLng mOriginLatLng;
     private LatLng mDestinationLatLng;
@@ -51,6 +57,13 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
+
+    private TextView mTextViewOrigin;
+    private TextView mTextViewDestination;
+    private TextView mTextViewTime;
+    private TextView mTextViewDistance;
+
+    private Button mButtonRequest;
 
 
     @Override
@@ -66,11 +79,36 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
         mExtraOriginLng = getIntent().getDoubleExtra("origin_lng", 0);
         mExtraDestinationLat = getIntent().getDoubleExtra("destination_lat", 0);
         mExtraDestinationLng = getIntent().getDoubleExtra("destination_lng", 0);
+        mExtraOrigin = getIntent().getStringExtra("origin");
+        mExtraDestination = getIntent().getStringExtra("destination");
 
         mOriginLatLng = new LatLng(mExtraOriginLat, mExtraOriginLng);
         mDestinationLatLng = new LatLng(mExtraDestinationLat, mExtraDestinationLng);
 
         mGoogleApiProvider = new GoogleApiProvider(DetailRequestActivity.this);
+
+        mTextViewOrigin = findViewById(R.id.TextViewOrigin);
+        mTextViewDestination = findViewById(R.id.TextViewDestination);
+        mTextViewTime = findViewById(R.id.TextViewTime);
+        mTextViewDistance = findViewById(R.id.TextViewDistance);
+
+        mButtonRequest = findViewById(R.id.btnRequestNow);
+
+        mTextViewOrigin.setText(mExtraOrigin);
+        mTextViewDestination.setText(mExtraDestination);
+
+        mButtonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRequestTrabajador();
+            }
+        });
+    }
+
+    private void goToRequestTrabajador() {
+        Intent intent = new Intent(DetailRequestActivity.this, RequestTrabajadorActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void drawRoute(){
@@ -86,11 +124,19 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
                     mPolylineList = DecodePoints.decodePoly(points);
                     mPolylineOptions = new PolylineOptions();
                     mPolylineOptions.color(Color.DKGRAY);
-                    mPolylineOptions.width(8f);
+                    mPolylineOptions.width(13f);
                     mPolylineOptions.startCap(new SquareCap());
                     mPolylineOptions.jointType(JointType.ROUND);
                     mPolylineOptions.addAll(mPolylineList);
                     mMap.addPolyline(mPolylineOptions);
+                    JSONArray legs = route.getJSONArray("legs");
+                    JSONObject leg = legs.getJSONObject(0);
+                    JSONObject distance = leg.getJSONObject("distance");
+                    JSONObject duration = leg.getJSONObject("duration");
+                    String distanceText = distance.getString("text");
+                    String durationText = duration.getString("text");
+                    mTextViewTime.setText(durationText);
+                    mTextViewDistance.setText(distanceText);
                 }catch (Exception e){
                     Log.d("Error", "Error encontrado" + e.getMessage());
                 }
