@@ -84,11 +84,11 @@ public class FormularuoClientActivity extends AppCompatActivity {
         final String nombre = mTextInputNombreCliente.getText().toString();
         final String direccion = mTextInputDireccion.getText().toString();
         final String numero = mTextInputNumero.getText().toString();
-        final int roles = Integer.parseInt(mTextInputRoles.getText().toString());
-        final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
-        final int panques = Integer.parseInt(mTextInputPanques.getText().toString());
         if (!nombre.isEmpty() && !direccion.isEmpty() && !numero.isEmpty() && !mTextInputRoles.getText().toString().isEmpty()
         && !mTextInputConchas.getText().toString().isEmpty() && !mTextInputPanques.getText().toString().isEmpty()) {
+            final int roles = Integer.parseInt(mTextInputRoles.getText().toString());
+            final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
+            final int panques = Integer.parseInt(mTextInputPanques.getText().toString());
             mDialog.show();
             register2(nombre, direccion, numero, roles, conchas, panques);
         } else {
