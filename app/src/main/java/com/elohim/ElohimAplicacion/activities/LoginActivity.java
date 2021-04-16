@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.elohim.ElohimAplicacion.R;
+import com.elohim.ElohimAplicacion.activities.cliente.FormularuoClientActivity;
 import com.elohim.ElohimAplicacion.activities.cliente.MapClientActivity;
 import com.elohim.ElohimAplicacion.activities.cliente.RegisterActivity;
 import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         String user = mPref.getString("user", "");
                         if (user.equals("cliente")){
-                            Intent intent = new Intent(LoginActivity.this, MapClientActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, FormularuoClientActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }
