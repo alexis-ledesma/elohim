@@ -16,6 +16,7 @@ import com.elohim.ElohimAplicacion.activities.cliente.FormularuoClientActivity;
 import com.elohim.ElohimAplicacion.activities.cliente.MapClientActivity;
 import com.elohim.ElohimAplicacion.activities.cliente.RegisterActivity;
 import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
+import com.elohim.ElohimAplicacion.activities.trabajador.TrabajadorPedidosActivity;
 import com.elohim.ElohimAplicacion.includes.MyToolbar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
-                            Intent intent = new Intent(LoginActivity.this, MapTrabajadorActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, TrabajadorPedidosActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }

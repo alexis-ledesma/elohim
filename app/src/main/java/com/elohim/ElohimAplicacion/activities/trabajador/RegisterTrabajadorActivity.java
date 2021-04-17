@@ -116,7 +116,7 @@ public class RegisterTrabajadorActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     //Toast.makeText(RegisterTrabajadorActivity.this, "El registro se realizó exitosamente", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterTrabajadorActivity.this, MapTrabajadorActivity.class);
+                    Intent intent = new Intent(RegisterTrabajadorActivity.this, TrabajadorPedidosActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {

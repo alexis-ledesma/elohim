@@ -2,6 +2,7 @@ package com.elohim.ElohimAplicacion.models;
 
 public class Pedido {
     String id;
+    String idCliente;
     String nombre;
     String direccion;
     String numero;
@@ -9,9 +10,23 @@ public class Pedido {
     int conchas;
     int panques;
 
+    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.numero = numero;
+        this.roles = roles;
+        this.conchas = conchas;
+        this.panques = panques;
+    }
 
-    public Pedido(String id, String nombre, String direccion, String numero, int roles, int conchas, int panques) {
+    public Pedido(){
+
+    }
+
+    public Pedido(String id, String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques) {
         this.id = id;
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.direccion = direccion;
         this.numero = numero;
@@ -26,6 +41,14 @@ public class Pedido {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {

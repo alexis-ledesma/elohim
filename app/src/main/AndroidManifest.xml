@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElohimAplicacion">
-        <activity android:name=".activities.cliente.FormularuoClientActivity"></activity>
+        <activity android:name=".activities.trabajador.TrabajadorPedidosActivity"/>
+        <activity android:name=".activities.cliente.FormularuoClientActivity" />
         <activity android:name=".activities.cliente.RequestTrabajadorActivity" />
         <activity
             android:name=".activities.cliente.DetailRequestActivity"

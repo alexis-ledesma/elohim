@@ -97,14 +97,14 @@ public class FormularuoClientActivity extends AppCompatActivity {
 
     }
     private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques){
-        String id = mAut.getCurrentUser().getUid();
+        String idCliente = mAut.getCurrentUser().getUid();
         mDialog.hide();
-        Pedido pedido = new Pedido(id, nombre, direccion, numero, roles, conchas, panques);
+        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques);
         create2(pedido);
     }
 
     private void create2(Pedido pedido) {
-        mPedidoProvider.create(pedido).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mPedidoProvider.push(pedido).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
