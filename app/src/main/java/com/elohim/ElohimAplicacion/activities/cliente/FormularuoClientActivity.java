@@ -89,17 +89,18 @@ public class FormularuoClientActivity extends AppCompatActivity {
             final int roles = Integer.parseInt(mTextInputRoles.getText().toString());
             final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
             final int panques = Integer.parseInt(mTextInputPanques.getText().toString());
+            final boolean enCamino = false;
             mDialog.show();
-            register2(nombre, direccion, numero, roles, conchas, panques);
+            register2(nombre, direccion, numero, roles, conchas, panques, enCamino);
         } else {
             Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
         }
 
     }
-    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques){
+    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino){
         String idCliente = mAut.getCurrentUser().getUid();
         mDialog.hide();
-        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques);
+        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques, enCamino);
         create2(pedido);
     }
 

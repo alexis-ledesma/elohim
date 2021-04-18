@@ -8,23 +8,6 @@
     tools:context=".activities.trabajador.TrabajadorPedidosActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <Button
-            android:id="@+id/btnPedido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:background="@drawable/rounded_button"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="REALIZAR PEDIDO"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"

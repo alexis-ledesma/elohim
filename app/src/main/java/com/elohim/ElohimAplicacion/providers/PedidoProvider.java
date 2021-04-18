@@ -19,8 +19,8 @@ public class PedidoProvider {
     public PedidoProvider(){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("pedidos");
     }
-    public Task<Void> create(Pedido pedido){
-        return mDatabase.child(pedido.getId()).setValue(pedido);
+    public Task<Void> create(Pedido pedido, String id){
+        return mDatabase.child(id).setValue(pedido);
     }
     public Task<Void> push(Pedido pedido){
         return mDatabase.push().setValue(pedido);

@@ -9,8 +9,9 @@ public class Pedido {
     int roles;
     int conchas;
     int panques;
+    boolean enCamino;
 
-    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques) {
+    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -18,13 +19,14 @@ public class Pedido {
         this.roles = roles;
         this.conchas = conchas;
         this.panques = panques;
+        this.enCamino = enCamino;
     }
 
     public Pedido(){
 
     }
 
-    public Pedido(String id, String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques) {
+    public Pedido(String id, String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino) {
         this.id = id;
         this.idCliente = idCliente;
         this.nombre = nombre;
@@ -33,6 +35,7 @@ public class Pedido {
         this.roles = roles;
         this.conchas = conchas;
         this.panques = panques;
+        this.enCamino = enCamino;
     }
 
     public String getId() {
@@ -97,5 +100,13 @@ public class Pedido {
 
     public void setPanques(int panques) {
         this.panques = panques;
+    }
+
+    public boolean isEnCamino() {
+        return enCamino;
+    }
+
+    public void setEnCamino(boolean enCamino) {
+        this.enCamino = enCamino;
     }
 }

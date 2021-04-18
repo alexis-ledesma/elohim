@@ -4,6 +4,16 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
+        android:id="@+id/textViewidClientePedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
         android:id="@+id/textViewNombrePedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,6 +23,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
+        android:id="@+id/textViewNumTelefonoPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
+        android:id="@+id/textViewRolesPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
+        android:id="@+id/textViewConchasPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <TextView
+        android:id="@+id/textViewPanquesPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Large"/>
+    <LinearLayout
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btnPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="REALIZAR PEDIDO"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
