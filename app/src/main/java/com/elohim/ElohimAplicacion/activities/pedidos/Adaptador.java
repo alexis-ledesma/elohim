@@ -3,7 +3,6 @@ package com.elohim.ElohimAplicacion.activities.pedidos;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.elohim.ElohimAplicacion.R;
-import com.elohim.ElohimAplicacion.activities.cliente.FormularuoClientActivity;
-import com.elohim.ElohimAplicacion.activities.cliente.MapClientActivity;
-import com.elohim.ElohimAplicacion.activities.trabajador.TrabajadorPedidosActivity;
+
+import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
 import com.elohim.ElohimAplicacion.models.Pedido;
 import com.elohim.ElohimAplicacion.providers.PedidoProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -100,12 +98,9 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
             mTextViewId.setVisibility(View.GONE);
             mTextViewidCliente.setVisibility(View.GONE);
 
-            mDialog = new SpotsDialog.Builder().setContext(mContext2).setMessage("Tomando el pedido").build();
-
             mButtonAceptarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mDialog.show();
                     clickAceptarPedido();
                 }
             });
@@ -128,7 +123,6 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
         private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total){
             boolean enCamino = true;
             Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total);
-            mDialog.hide();
             update(pedido, id);
         }
         private void update(Pedido pedido, String id){
@@ -136,7 +130,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(mContext2, MapClientActivity.class);
+                        Intent intent = new Intent(mContext2, MapTrabajadorActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         mContext2.startActivity(intent);
                     } else {

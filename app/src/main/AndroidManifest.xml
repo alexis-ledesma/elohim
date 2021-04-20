@@ -19,8 +19,11 @@
         <activity
             android:name=".activities.cliente.DetailRequestActivity"
             android:parentActivityName=".activities.cliente.MapClientActivity" />
-        <activity android:name=".activities.trabajador.MapTrabajadorActivity" />
-        <activity android:name=".activities.cliente.MapClientActivity" />
+        <activity
+            android:name=".activities.trabajador.MapTrabajadorActivity"
+            android:parentActivityName=".activities.SelectOptionAuthActivity"/>
+        <activity android:name=".activities.cliente.MapClientActivity"
+            android:parentActivityName=".activities.cliente.FormularuoClientActivity"/>
         <activity android:name=".activities.trabajador.RegisterTrabajadorActivity" />
         <activity
             android:name=".activities.LoginActivity"

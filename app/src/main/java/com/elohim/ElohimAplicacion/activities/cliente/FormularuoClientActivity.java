@@ -9,15 +9,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.parser.FloatParser;
 import com.elohim.ElohimAplicacion.R;
+import com.elohim.ElohimAplicacion.activities.MainActivity;
 import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
 import com.elohim.ElohimAplicacion.activities.trabajador.RegisterTrabajadorActivity;
+import com.elohim.ElohimAplicacion.activities.trabajador.TrabajadorPedidosActivity;
+import com.elohim.ElohimAplicacion.includes.MyToolbar;
 import com.elohim.ElohimAplicacion.models.Client;
 import com.elohim.ElohimAplicacion.models.Pedido;
 import com.elohim.ElohimAplicacion.models.Trabajador;
@@ -43,7 +49,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
     TextInputEditText mTextInputRoles;
     TextInputEditText mTextInputConchas;
     TextInputEditText mTextInputPanques;
-    EditText mTextInputTotal;
+    TextView mTextInputTotal;
 
 
     AlertDialog mDialog;
@@ -64,6 +70,8 @@ public class FormularuoClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formularuo_client);
+
+        MyToolbar.show(this, "Realizar pedido", false);
 
         mDialog = new SpotsDialog.Builder().setContext(FormularuoClientActivity.this).setMessage("Espere un momento porfavor").build();
 
@@ -207,5 +215,26 @@ public class FormularuoClientActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.trabajador_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_logout){
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    void logout() {
+        mAuthProvider.logout();
+        Intent intent = new Intent(FormularuoClientActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

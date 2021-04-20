@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.elohim.ElohimAplicacion.R;
-import com.elohim.ElohimAplicacion.activities.cliente.MapClientActivity;
+import com.elohim.ElohimAplicacion.activities.MainActivity;
 import com.elohim.ElohimAplicacion.activities.pedidos.Adaptador;
+import com.elohim.ElohimAplicacion.includes.MyToolbar;
 import com.elohim.ElohimAplicacion.models.Pedido;
+import com.elohim.ElohimAplicacion.providers.AuthProvider;
 import com.elohim.ElohimAplicacion.providers.PedidoProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,10 +34,12 @@ public class TrabajadorPedidosActivity extends AppCompatActivity {
     List<Pedido> pedidos;
     Adaptador adapter;
 
+    private AuthProvider mAuthProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trabajador_pedidos);
+        MyToolbar.show(this, "Pedidos dispobibles", false);
         //mPedidoProvider = new PedidoProvider();
 
         mRecyclerPedidos = findViewById(R.id.recyclerPedido);
@@ -49,6 +51,8 @@ public class TrabajadorPedidosActivity extends AppCompatActivity {
 
         adapter = new Adaptador(pedidos, TrabajadorPedidosActivity.this);
         mRecyclerPedidos.setAdapter(adapter);
+
+        mAuthProvider = new AuthProvider();
 
         database.getReference().child("Users").child("pedidos").addValueEventListener(new ValueEventListener() {
 
@@ -76,5 +80,26 @@ public class TrabajadorPedidosActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.trabajador_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_logout){
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    void logout() {
+        mAuthProvider.logout();
+        Intent intent = new Intent(TrabajadorPedidosActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
