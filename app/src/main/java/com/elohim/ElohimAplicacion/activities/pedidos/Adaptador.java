@@ -55,6 +55,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
         holder.mTextViewRoles.setText(String.valueOf(pedido.getRoles()));
         holder.mTextViewConchas.setText(String.valueOf(pedido.getConchas()));
         holder.mTextViewPanques.setText(String.valueOf(pedido.getPanques()));
+        holder.mTextViewTotal.setText(String.valueOf(pedido.getTotal()));
     }
 
     @Override
@@ -71,6 +72,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
         TextView mTextViewRoles;
         TextView mTextViewConchas;
         TextView mTextViewPanques;
+        TextView mTextViewTotal;
 
         Button mButtonAceptarPedido;
 
@@ -82,13 +84,14 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
             super(itemView);
             mContext2 = c;
             mTextViewId =itemView.findViewById(R.id.textViewId);
-            mTextViewidCliente =itemView.findViewById(R.id.textViewidClientePedido);
+            mTextViewidCliente =itemView.findViewById(R.id.textViewIdClientePedido);
             mTextViewNombre =itemView.findViewById(R.id.textViewNombrePedido);
             mTextViewDireccion =itemView.findViewById(R.id.textViewDireccionPedido);
             mTextViewNumTelefono =itemView.findViewById(R.id.textViewNumTelefonoPedido);
             mTextViewRoles =itemView.findViewById(R.id.textViewRolesPedido);
             mTextViewConchas =itemView.findViewById(R.id.textViewConchasPedido);
             mTextViewPanques =itemView.findViewById(R.id.textViewPanquesPedido);
+            mTextViewTotal =itemView.findViewById(R.id.textViewTotalPedido);
 
             mButtonAceptarPedido = itemView.findViewById(R.id.btnPedido);
 
@@ -97,7 +100,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
             mTextViewId.setVisibility(View.GONE);
             mTextViewidCliente.setVisibility(View.GONE);
 
-            mDialog = new SpotsDialog.Builder().setContext(mContext2).setMessage("Espere un momento porfavor").build();
+            mDialog = new SpotsDialog.Builder().setContext(mContext2).setMessage("Tomando el pedido").build();
 
             mButtonAceptarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,13 +120,14 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder
             final int roles = Integer.parseInt(mTextViewRoles.getText().toString());
             final int conchas = Integer.parseInt(mTextViewConchas.getText().toString());
             final int panques = Integer.parseInt(mTextViewPanques.getText().toString());
+            final float total = Float.parseFloat(mTextViewTotal.getText().toString());
 
-            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques);
+            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques, total);
         }
 
-        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques){
+        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total){
             boolean enCamino = true;
-            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino);
+            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total);
             mDialog.hide();
             update(pedido, id);
         }

@@ -10,8 +10,9 @@ public class Pedido {
     int conchas;
     int panques;
     boolean enCamino;
+    float total;
 
-    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino) {
+    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -20,6 +21,7 @@ public class Pedido {
         this.conchas = conchas;
         this.panques = panques;
         this.enCamino = enCamino;
+        this.total = total;
     }
 
     public Pedido(){
@@ -108,5 +110,13 @@ public class Pedido {
 
     public void setEnCamino(boolean enCamino) {
         this.enCamino = enCamino;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 }

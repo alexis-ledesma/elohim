@@ -3,46 +3,92 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewId"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewidClientePedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewNombrePedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewDireccionPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewNumTelefonoPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewRolesPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewConchasPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
-    <TextView
-        android:id="@+id/textViewPanquesPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Material.Large"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="4dp">
+
+        <TextView
+            android:id="@+id/textViewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textViewIdClientePedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textViewNombrePedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Nombre"
+            android:textColor="@android:color/black"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dirección"/>
+        <TextView
+            android:id="@+id/textViewDireccionPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Direccion"
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero telefonico: "/>
+        <TextView
+            android:id="@+id/textViewNumTelefonoPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="num telefonico"
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Roles: ">
+
+        </TextView>
+        <TextView
+            android:id="@+id/textViewRolesPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Roles: "
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Conchas: "/>
+        <TextView
+            android:id="@+id/textViewConchasPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Conchas: "
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Panques: "/>
+        <TextView
+            android:id="@+id/textViewPanquesPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Panques: "
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/textViewTotalPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Material.Large"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"

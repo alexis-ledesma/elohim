@@ -7,10 +7,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airbnb.lottie.parser.FloatParser;
 import com.elohim.ElohimAplicacion.R;
 import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
 import com.elohim.ElohimAplicacion.activities.trabajador.RegisterTrabajadorActivity;
@@ -39,6 +43,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
     TextInputEditText mTextInputRoles;
     TextInputEditText mTextInputConchas;
     TextInputEditText mTextInputPanques;
+    EditText mTextInputTotal;
 
 
     AlertDialog mDialog;
@@ -47,6 +52,12 @@ public class FormularuoClientActivity extends AppCompatActivity {
     ClientProvider mClientProvider;
     PedidoProvider mPedidoProvider;
     DatabaseReference mDatabase;
+
+    Float total = 0F;
+    Float totalPanques = 0F;
+    Float totalConchas = 0F;
+    Float totalRoles = 0F;
+
     //SharedPreferences mPref;
 
     @Override
@@ -63,6 +74,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
         mTextInputRoles = findViewById(R.id.TextInputRoles);
         mTextInputConchas = findViewById(R.id.TextInputConchas);
         mTextInputPanques = findViewById(R.id.TextInputPanques);
+        mTextInputTotal = findViewById(R.id.editTextTextTotal);
 
         //mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         mAut = FirebaseAuth.getInstance();
@@ -79,6 +91,82 @@ public class FormularuoClientActivity extends AppCompatActivity {
                 clicPedido();
             }
         });
+        mTextInputRoles.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                //System.out.println(s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //System.out.println(s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int cantidad = 0;
+                if(!s.toString().isEmpty()){
+                    cantidad = Integer.parseInt(s.toString());
+                }
+                Float precioRoles = 10F;
+                totalRoles = 0F;
+                totalRoles = totalRoles + (cantidad * precioRoles);
+                total = totalPanques + totalConchas + totalRoles;
+                //total = total + totalPanques;
+                mTextInputTotal.setText("Total: " + total);
+            }
+        });
+        mTextInputConchas.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                //System.out.println(s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //System.out.println(s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int cantidad = 0;
+                if(!s.toString().isEmpty()){
+                    cantidad = Integer.parseInt(s.toString());
+                }
+                Float precioConchas = 8F;
+                totalConchas = 0F;
+                totalConchas = totalConchas + (cantidad * precioConchas);
+                total = totalPanques + totalConchas + totalRoles;
+                //total = total + totalPanques;
+                mTextInputTotal.setText("Total: " + total);
+            }
+        });
+        mTextInputPanques.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                System.out.println("uno:  " + s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("dos:  " +  s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int cantidad = 0;
+                if(!s.toString().isEmpty()){
+                     cantidad = Integer.parseInt(s.toString());
+                }
+                Float precioPanques = 100F;
+                totalPanques = 0F;
+                totalPanques = totalPanques + (cantidad * precioPanques);
+                total = totalPanques + totalConchas + totalRoles;
+                    //total = total + totalPanques;
+                mTextInputTotal.setText("Total: " + total);
+            }
+        });
+
     }
     private void clicPedido(){
         final String nombre = mTextInputNombreCliente.getText().toString();
@@ -90,17 +178,18 @@ public class FormularuoClientActivity extends AppCompatActivity {
             final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
             final int panques = Integer.parseInt(mTextInputPanques.getText().toString());
             final boolean enCamino = false;
-            mDialog.show();
-            register2(nombre, direccion, numero, roles, conchas, panques, enCamino);
+            //mDialog.show();
+            register2(nombre, direccion, numero, roles, conchas, panques, enCamino, total);
         } else {
             Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
         }
 
     }
-    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino){
+    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total){
         String idCliente = mAut.getCurrentUser().getUid();
-        mDialog.hide();
-        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques, enCamino);
+        //mDialog.hide();
+
+        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques, enCamino, total);
         create2(pedido);
     }
 
@@ -119,5 +208,4 @@ public class FormularuoClientActivity extends AppCompatActivity {
         });
 
     }
-
 }

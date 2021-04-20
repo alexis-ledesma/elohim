@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activities.cliente.FormularuoClientActivity">
 
+    <!--<include layout="@layout/action_bar_toolbar">
 
-    <include layout="@layout/action_bar_toolbar">
-
-    </include>
+    </include>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <EditText
+                android:id="@+id/editTextTextTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Total a pagar: "
+                android:layout_marginTop="0dp"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +39,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Favor de proporcionar sus datos para la entrega"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="0dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
