@@ -11,8 +11,10 @@ public class Pedido {
     int panques;
     boolean enCamino;
     float total;
+    double destinoLatitud;
+    double destinoLongitud;
 
-    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total) {
+    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total,double destinoLatitud,double destinoLongitud) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -22,6 +24,8 @@ public class Pedido {
         this.panques = panques;
         this.enCamino = enCamino;
         this.total = total;
+        this.destinoLatitud = destinoLatitud;
+        this.destinoLongitud = destinoLongitud;
     }
 
     public Pedido(){
@@ -38,6 +42,9 @@ public class Pedido {
         this.conchas = conchas;
         this.panques = panques;
         this.enCamino = enCamino;
+    }
+
+    public Pedido(String idCliente, String nombre, String direccion, String numeroTelefono, int roles, int conchas, int panques, boolean enCamino, float total) {
     }
 
     public String getId() {
@@ -118,5 +125,21 @@ public class Pedido {
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public double getDestinoLatitud() {
+        return destinoLatitud;
+    }
+
+    public void setDestinoLatitud(double destinoLatitud) {
+        this.destinoLatitud = destinoLatitud;
+    }
+
+    public double getDestinoLongitud() {
+        return destinoLongitud;
+    }
+
+    public void setDestinoLongitud(double destinoLongitud) {
+        this.destinoLongitud = destinoLongitud;
     }
 }

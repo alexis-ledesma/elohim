@@ -64,7 +64,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
 
     Button mButtonPedido;
     TextInputEditText mTextInputNombreCliente;
-    TextInputEditText mTextInputDireccion;
+    TextView mTextInputDireccion;
     TextInputEditText mTextInputNumero;
     TextInputEditText mTextInputRoles;
     TextInputEditText mTextInputConchas;
@@ -200,7 +200,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
         final String nombre = mTextInputNombreCliente.getText().toString();
         final String direccion = mTextInputDireccion.getText().toString();
         final String numero = mTextInputNumero.getText().toString();
-        if (!nombre.isEmpty() && !direccion.isEmpty() && !numero.isEmpty() && !mTextInputRoles.getText().toString().isEmpty()
+        if (!nombre.isEmpty() && mOriginLatLng != null && !numero.isEmpty() && !mTextInputRoles.getText().toString().isEmpty()
         && !mTextInputConchas.getText().toString().isEmpty() && !mTextInputPanques.getText().toString().isEmpty()) {
             final int roles = Integer.parseInt(mTextInputRoles.getText().toString());
             final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
@@ -217,7 +217,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
         String idCliente = mAut.getCurrentUser().getUid();
         //mDialog.hide();
 
-        Pedido pedido = new Pedido(idCliente, nombre, direccion, numero, roles, conchas, panques, enCamino, total);
+        Pedido pedido = new Pedido(idCliente, nombre, mOrigin, numero, roles, conchas, panques, enCamino, total, mOriginLatLng.latitude, mOriginLatLng.longitude);
         create2(pedido);
     }
 

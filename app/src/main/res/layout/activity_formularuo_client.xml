@@ -61,13 +61,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
                     android:id="@+id/TextInputDireccion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Dirección"
                     android:inputType="text">
-                </com.google.android.material.textfield.TextInputEditText>
+                </TextView>
                 <fragment
                     android:id="@+id/places_autocompleteOriginDireccion"
                     android:layout_width="match_parent"

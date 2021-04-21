@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elohim.ElohimAplicacion.R;
 
+import com.elohim.ElohimAplicacion.activities.cliente.DetailRequestActivity;
+import com.elohim.ElohimAplicacion.activities.cliente.FormularuoClientActivity;
 import com.elohim.ElohimAplicacion.models.Pedido;
 import com.elohim.ElohimAplicacion.providers.PedidoProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
 
 import java.util.List;
 
@@ -51,6 +54,8 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
         holder.mTextViewConchas.setText(String.valueOf(pedido.getConchas()));
         holder.mTextViewPanques.setText(String.valueOf(pedido.getPanques()));
         holder.mTextViewTotal.setText(String.valueOf(pedido.getTotal()));
+        holder.mTextViewLatitud.setText(String.valueOf(pedido.getDestinoLatitud()));
+        holder.mTextViewLongitud.setText(String.valueOf(pedido.getDestinoLongitud()));
     }
 
     @Override
@@ -68,6 +73,8 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
         TextView mTextViewConchas;
         TextView mTextViewPanques;
         TextView mTextViewTotal;
+        TextView mTextViewLatitud;
+        TextView mTextViewLongitud;
 
         Button mButtonAceptarPedido;
 
@@ -87,6 +94,8 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
             mTextViewConchas =itemView.findViewById(R.id.textViewConchasPedido);
             mTextViewPanques =itemView.findViewById(R.id.textViewPanquesPedido);
             mTextViewTotal =itemView.findViewById(R.id.textViewTotalPedido);
+            mTextViewLatitud =itemView.findViewById(R.id.textViewLatitudPedido);
+            mTextViewLongitud =itemView.findViewById(R.id.textViewIdLongitudPedido);
 
             mButtonAceptarPedido = itemView.findViewById(R.id.btnPedido);
 
@@ -94,6 +103,8 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
 
             mTextViewId.setVisibility(View.GONE);
             mTextViewidCliente.setVisibility(View.GONE);
+            mTextViewLatitud.setVisibility(View.GONE);
+            mTextViewLongitud.setVisibility(View.GONE);
 
             mButtonAceptarPedido.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,23 +124,38 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
             final int conchas = Integer.parseInt(mTextViewConchas.getText().toString());
             final int panques = Integer.parseInt(mTextViewPanques.getText().toString());
             final float total = Float.parseFloat(mTextViewTotal.getText().toString());
+            final double latitud = Double.parseDouble(mTextViewLatitud.getText().toString());
+            final double longitud = Double.parseDouble(mTextViewLongitud.getText().toString());
 
-            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques, total);
+            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques, total, latitud, longitud);
         }
 
-        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total){
+        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total, double latitud, double longitud){
             boolean enCamino = true;
-            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total);
+            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total,latitud,longitud);
             update(pedido, id);
         }
         private void update(Pedido pedido, String id){
             mPedidoProvider.create(pedido, id).addOnCompleteListener(new OnCompleteListener<Void>() {
+
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(mContext2, MapTrabajadorActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        mContext2.startActivity(intent);
+                        if (!Places.isInitialized()) {
+                            Places.initialize(mContext2.getApplicationContext(), mContext2.getResources().getString(R.string.google_maps_key));
+                        }
+                        if (pedido.getDestinoLatitud() != 0.0){
+                            Intent intent = new Intent(mContext2, DetailRequestActivity.class);
+                            intent.putExtra("origin_lat", 18.33921503491766);
+                            intent.putExtra("origin_lng", -99.52976789108938);
+                            intent.putExtra("destination_lat", pedido.getDestinoLatitud());
+                            intent.putExtra("destination_lng",  pedido.getDestinoLongitud());
+                            intent.putExtra("origin", pedido.getDireccion());
+                            intent.putExtra("destination","Panaderia Elohim");
+                            mContext2.startActivity(intent);
+                        } else {
+                            Toast.makeText(mContext2, "Este pedido no tiene destino", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(mContext2, "No se pudo tomar el pedido", Toast.LENGTH_SHORT).show();
                     }
