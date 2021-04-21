@@ -67,8 +67,13 @@
                     android:layout_height="wrap_content"
                     android:hint="Dirección"
                     android:inputType="text">
-
                 </com.google.android.material.textfield.TextInputEditText>
+                <fragment
+                    android:id="@+id/places_autocompleteOriginDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout

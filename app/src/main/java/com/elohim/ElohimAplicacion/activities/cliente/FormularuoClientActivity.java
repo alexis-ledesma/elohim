@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,17 +34,34 @@ import com.elohim.ElohimAplicacion.providers.AuthProvider;
 import com.elohim.ElohimAplicacion.providers.ClientProvider;
 import com.elohim.ElohimAplicacion.providers.PedidoProvider;
 import com.elohim.ElohimAplicacion.providers.TrabajadorProvider;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.maps.android.SphericalUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
 public class FormularuoClientActivity extends AppCompatActivity {
+    private AutocompleteSupportFragment mAutocomplete;
+    private LatLng mOriginLatLng;
+    private String mOrigin;
+
     Button mButtonPedido;
     TextInputEditText mTextInputNombreCliente;
     TextInputEditText mTextInputDireccion;
@@ -50,7 +70,6 @@ public class FormularuoClientActivity extends AppCompatActivity {
     TextInputEditText mTextInputConchas;
     TextInputEditText mTextInputPanques;
     TextView mTextInputTotal;
-
 
     AlertDialog mDialog;
     FirebaseAuth mAut;
@@ -63,8 +82,6 @@ public class FormularuoClientActivity extends AppCompatActivity {
     Float totalPanques = 0F;
     Float totalConchas = 0F;
     Float totalRoles = 0F;
-
-    //SharedPreferences mPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +101,6 @@ public class FormularuoClientActivity extends AppCompatActivity {
         mTextInputPanques = findViewById(R.id.TextInputPanques);
         mTextInputTotal = findViewById(R.id.editTextTextTotal);
 
-        //mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
         mAut = FirebaseAuth.getInstance();
         mAuthProvider = new AuthProvider();
         mClientProvider = new ClientProvider();
@@ -92,6 +108,11 @@ public class FormularuoClientActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mButtonPedido = findViewById(R.id.btnPedido);
+
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getResources().getString(R.string.google_maps_key));
+        }
+        instanceAutocompleteOrigin();
 
         mButtonPedido.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +195,6 @@ public class FormularuoClientActivity extends AppCompatActivity {
                 mTextInputTotal.setText("Total: " + total);
             }
         });
-
     }
     private void clicPedido(){
         final String nombre = mTextInputNombreCliente.getText().toString();
@@ -206,9 +226,19 @@ public class FormularuoClientActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(FormularuoClientActivity.this, MapClientActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    if (mOriginLatLng != null){
+                        Intent intent = new Intent(FormularuoClientActivity.this, DetailRequestActivity.class);
+                        intent.putExtra("destination_lat", 18.33921503491766);
+                        intent.putExtra("destination_lng",  -99.52976789108938);
+                        intent.putExtra("origin_lat", mOriginLatLng.latitude);
+                        intent.putExtra("origin_lng", mOriginLatLng.longitude);
+                        intent.putExtra("destination", "Panaderia Elohim");
+                        intent.putExtra("origin", mOrigin);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(FormularuoClientActivity.this, "Debe seleccionar el lugar de origen y destino", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(FormularuoClientActivity.this, "No se pudo crear el pedido", Toast.LENGTH_SHORT).show();
                 }
@@ -236,5 +266,25 @@ public class FormularuoClientActivity extends AppCompatActivity {
         Intent intent = new Intent(FormularuoClientActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void instanceAutocompleteOrigin(){
+        mAutocomplete = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.places_autocompleteOriginDireccion);
+        mAutocomplete.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
+        mAutocomplete.setHint("Lugar de origen");
+        mAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                mOrigin = place.getName();
+                mOriginLatLng = place.getLatLng();
+                Log.d("PLACES", "Name:" + mOrigin);
+                Log.d("PLACES", "Lat:" + mOriginLatLng.latitude);
+                Log.d("PLACES", "Lng:" + mOriginLatLng.longitude);
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+
+            }
+        });
     }
 }
