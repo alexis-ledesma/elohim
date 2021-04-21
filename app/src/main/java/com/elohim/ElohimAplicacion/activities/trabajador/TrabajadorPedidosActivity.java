@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.elohim.ElohimAplicacion.R;
 import com.elohim.ElohimAplicacion.activities.MainActivity;
-import com.elohim.ElohimAplicacion.activities.pedidos.Adaptador;
 import com.elohim.ElohimAplicacion.includes.MyToolbar;
 import com.elohim.ElohimAplicacion.models.Pedido;
 import com.elohim.ElohimAplicacion.providers.AuthProvider;
@@ -32,7 +31,7 @@ public class TrabajadorPedidosActivity extends AppCompatActivity {
 
 
     List<Pedido> pedidos;
-    Adaptador adapter;
+    PedidoTrabajadorActivity adapter;
 
     private AuthProvider mAuthProvider;
     @Override
@@ -49,7 +48,7 @@ public class TrabajadorPedidosActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        adapter = new Adaptador(pedidos, TrabajadorPedidosActivity.this);
+        adapter = new PedidoTrabajadorActivity(pedidos, TrabajadorPedidosActivity.this);
         mRecyclerPedidos.setAdapter(adapter);
 
         mAuthProvider = new AuthProvider();

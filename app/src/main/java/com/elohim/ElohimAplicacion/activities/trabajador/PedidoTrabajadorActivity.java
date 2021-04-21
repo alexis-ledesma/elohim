@@ -1,4 +1,4 @@
-package com.elohim.ElohimAplicacion.activities.pedidos;
+package com.elohim.ElohimAplicacion.activities.trabajador;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elohim.ElohimAplicacion.R;
 
-import com.elohim.ElohimAplicacion.activities.trabajador.MapTrabajadorActivity;
 import com.elohim.ElohimAplicacion.models.Pedido;
 import com.elohim.ElohimAplicacion.providers.PedidoProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,11 +22,9 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
-import dmax.dialog.SpotsDialog;
-
-public class Adaptador extends RecyclerView.Adapter<Adaptador.PedidosVistaHolder> {
+public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabajadorActivity.PedidosVistaHolder> {
     Context mContext;
-    public Adaptador(List<Pedido> pedidos, Context c) {
+    public PedidoTrabajadorActivity(List<Pedido> pedidos, Context c) {
         mContext = c;
         this.pedidos = pedidos;
     }
