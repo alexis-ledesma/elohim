@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elohim.ElohimAplicacion.R;
+import com.elohim.ElohimAplicacion.activities.LoginActivity;
+import com.elohim.ElohimAplicacion.activities.trabajador.TrabajadorPedidosActivity;
 import com.elohim.ElohimAplicacion.includes.MyToolbar;
 import com.elohim.ElohimAplicacion.providers.GoogleApiProvider;
 import com.elohim.ElohimAplicacion.utils.DecodePoints;
@@ -55,6 +59,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
     private GoogleApiProvider mGoogleApiProvider;
 
+    SharedPreferences mPref;
+
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
 
@@ -87,6 +93,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
         mGoogleApiProvider = new GoogleApiProvider(DetailRequestActivity.this);
 
+        mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
+
         mTextViewOrigin = findViewById(R.id.TextViewOrigin);
         mTextViewDestination = findViewById(R.id.TextViewDestination);
         mTextViewTime = findViewById(R.id.TextViewTime);
@@ -106,9 +114,19 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void goToRequestTrabajador() {
-        Intent intent = new Intent(DetailRequestActivity.this, RequestTrabajadorActivity.class);
-        startActivity(intent);
-        finish();
+        String user = mPref.getString("user", "");
+        if (user.equals("cliente")){
+            Toast.makeText(this, "Su pedido ha sido registrado con exito", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DetailRequestActivity.this, FormularuoClientActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            Toast.makeText(this, "El pedido ha sido entregado con exito", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DetailRequestActivity.this, TrabajadorPedidosActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void drawRoute(){

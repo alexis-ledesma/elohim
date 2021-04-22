@@ -53,6 +53,9 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
         holder.mTextViewRoles.setText(String.valueOf(pedido.getRoles()));
         holder.mTextViewConchas.setText(String.valueOf(pedido.getConchas()));
         holder.mTextViewPanques.setText(String.valueOf(pedido.getPanques()));
+        holder.mTextViewBollos.setText(String.valueOf(pedido.getBollos()));
+        holder.mTextViewDonas.setText(String.valueOf(pedido.getDonas()));
+        holder.mTextViewPastes.setText(String.valueOf(pedido.getPastes()));
         holder.mTextViewTotal.setText(String.valueOf(pedido.getTotal()));
         holder.mTextViewLatitud.setText(String.valueOf(pedido.getDestinoLatitud()));
         holder.mTextViewLongitud.setText(String.valueOf(pedido.getDestinoLongitud()));
@@ -75,6 +78,9 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
         TextView mTextViewTotal;
         TextView mTextViewLatitud;
         TextView mTextViewLongitud;
+        TextView mTextViewBollos;
+        TextView mTextViewDonas;
+        TextView mTextViewPastes;
 
         Button mButtonAceptarPedido;
 
@@ -96,6 +102,9 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
             mTextViewTotal =itemView.findViewById(R.id.textViewTotalPedido);
             mTextViewLatitud =itemView.findViewById(R.id.textViewLatitudPedido);
             mTextViewLongitud =itemView.findViewById(R.id.textViewIdLongitudPedido);
+            mTextViewBollos =itemView.findViewById(R.id.textViewBollosPedido);
+            mTextViewDonas =itemView.findViewById(R.id.textViewDonasPedido);
+            mTextViewPastes =itemView.findViewById(R.id.textViewPastesPedido);
 
             mButtonAceptarPedido = itemView.findViewById(R.id.btnPedido);
 
@@ -126,13 +135,16 @@ public class PedidoTrabajadorActivity extends RecyclerView.Adapter<PedidoTrabaja
             final float total = Float.parseFloat(mTextViewTotal.getText().toString());
             final double latitud = Double.parseDouble(mTextViewLatitud.getText().toString());
             final double longitud = Double.parseDouble(mTextViewLongitud.getText().toString());
+            final int bollos = Integer.parseInt(mTextViewBollos.getText().toString());
+            final int donas = Integer.parseInt(mTextViewDonas.getText().toString());
+            final int pastes = Integer.parseInt(mTextViewPastes.getText().toString());
 
-            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques, total, latitud, longitud);
+            actualizarPedido(id, idCliente, nombre, direccion, numeroTelefono,roles, conchas, panques, total, latitud, longitud, bollos, donas, pastes);
         }
 
-        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total, double latitud, double longitud){
+        private void actualizarPedido(String id, String idCliente,String nombre,String direccion,String numeroTelefono,int roles,int conchas,int panques, float total, double latitud, double longitud, int bollos, int donas, int pastes){
             boolean enCamino = true;
-            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total,latitud,longitud);
+            Pedido pedido = new Pedido(idCliente,nombre,direccion,numeroTelefono,roles,conchas,panques,enCamino,total,latitud,longitud,bollos,donas,pastes);
             update(pedido, id);
         }
         private void update(Pedido pedido, String id){

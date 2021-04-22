@@ -69,6 +69,9 @@ public class FormularuoClientActivity extends AppCompatActivity {
     TextInputEditText mTextInputRoles;
     TextInputEditText mTextInputConchas;
     TextInputEditText mTextInputPanques;
+    TextInputEditText mTextInputBollos;
+    TextInputEditText mTextInputDonas;
+    TextInputEditText mTextInputPastes;
     TextView mTextInputTotal;
 
     AlertDialog mDialog;
@@ -82,6 +85,9 @@ public class FormularuoClientActivity extends AppCompatActivity {
     Float totalPanques = 0F;
     Float totalConchas = 0F;
     Float totalRoles = 0F;
+    Float totalBollos = 0F;
+    Float totalDonas = 0F;
+    Float totalPastes = 0F;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +105,9 @@ public class FormularuoClientActivity extends AppCompatActivity {
         mTextInputRoles = findViewById(R.id.TextInputRoles);
         mTextInputConchas = findViewById(R.id.TextInputConchas);
         mTextInputPanques = findViewById(R.id.TextInputPanques);
+        mTextInputBollos = findViewById(R.id.TextInputBollos);
+        mTextInputDonas = findViewById(R.id.TextInputDonas);
+        mTextInputPastes = findViewById(R.id.TextInputPastes);
         mTextInputTotal = findViewById(R.id.editTextTextTotal);
 
         mAut = FirebaseAuth.getInstance();
@@ -133,16 +142,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int cantidad = 0;
-                if(!s.toString().isEmpty()){
-                    cantidad = Integer.parseInt(s.toString());
-                }
-                Float precioRoles = 10F;
-                totalRoles = 0F;
-                totalRoles = totalRoles + (cantidad * precioRoles);
-                total = totalPanques + totalConchas + totalRoles;
-                //total = total + totalPanques;
-                mTextInputTotal.setText("Total: " + total);
+                calcularTotal(s,10F,"roles");
             }
         });
         mTextInputConchas.addTextChangedListener(new TextWatcher() {
@@ -158,16 +158,7 @@ public class FormularuoClientActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int cantidad = 0;
-                if(!s.toString().isEmpty()){
-                    cantidad = Integer.parseInt(s.toString());
-                }
-                Float precioConchas = 8F;
-                totalConchas = 0F;
-                totalConchas = totalConchas + (cantidad * precioConchas);
-                total = totalPanques + totalConchas + totalRoles;
-                //total = total + totalPanques;
-                mTextInputTotal.setText("Total: " + total);
+                calcularTotal(s,8F,"conchas");
             }
         });
         mTextInputPanques.addTextChangedListener(new TextWatcher() {
@@ -183,18 +174,86 @@ public class FormularuoClientActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int cantidad = 0;
-                if(!s.toString().isEmpty()){
-                     cantidad = Integer.parseInt(s.toString());
-                }
-                Float precioPanques = 100F;
-                totalPanques = 0F;
-                totalPanques = totalPanques + (cantidad * precioPanques);
-                total = totalPanques + totalConchas + totalRoles;
-                    //total = total + totalPanques;
-                mTextInputTotal.setText("Total: " + total);
+                calcularTotal(s, 100F,"panques");
             }
         });
+        mTextInputBollos.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                System.out.println("uno:  " + s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("dos:  " +  s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calcularTotal(s, 8F,"bollos");
+            }
+        });
+        mTextInputDonas.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                System.out.println("uno:  " + s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("dos:  " +  s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calcularTotal(s,5F,"donas");
+            }
+        });
+        mTextInputPastes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+                System.out.println("uno:  " + s.toString() + " " + start + " " + count + " " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("dos:  " +  s.toString() + " " + start + " " + count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calcularTotal(s,12F,"pastes");
+            }
+        });
+    }
+    private void calcularTotal(Editable s, Float precio, String pan){
+        int cantidad = 0;
+        if(!s.toString().isEmpty()){
+            cantidad = Integer.parseInt(s.toString());
+        }
+
+        if(pan.equals("bollos")){
+            totalBollos = 0F;
+            totalBollos = totalBollos + (cantidad * precio);
+        } else if(pan.equals("panques")){
+            totalPanques = 0F;
+            totalPanques = totalPanques + (cantidad * precio);
+        } else if(pan.equals("roles")){
+            totalRoles = 0F;
+            totalRoles = totalRoles + (cantidad * precio);
+        } else if(pan.equals("conchas")){
+            totalConchas = 0F;
+            totalConchas = totalConchas + (cantidad * precio);
+        } else if(pan.equals("donas")){
+            totalDonas = 0F;
+            totalDonas = totalDonas + (cantidad * precio);
+        }
+        else if(pan.equals("pastes")){
+            totalPastes = 0F;
+            totalPastes = totalPastes + (cantidad * precio);
+        }
+        total = totalPanques + totalConchas + totalRoles + totalBollos + totalDonas + totalPastes;
+        mTextInputTotal.setText("Total: " + total);
     }
     private void clicPedido(){
         final String nombre = mTextInputNombreCliente.getText().toString();
@@ -205,19 +264,22 @@ public class FormularuoClientActivity extends AppCompatActivity {
             final int roles = Integer.parseInt(mTextInputRoles.getText().toString());
             final int conchas = Integer.parseInt(mTextInputConchas.getText().toString());
             final int panques = Integer.parseInt(mTextInputPanques.getText().toString());
+            final int bollos = Integer.parseInt(mTextInputBollos.getText().toString());
+            final int donas = Integer.parseInt(mTextInputDonas.getText().toString());
+            final int pastes = Integer.parseInt(mTextInputPastes.getText().toString());
             final boolean enCamino = false;
             //mDialog.show();
-            register2(nombre, direccion, numero, roles, conchas, panques, enCamino, total);
+            register2(nombre, direccion, numero, roles, conchas, panques, enCamino, total, bollos, donas,pastes);
         } else {
             Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
         }
 
     }
-    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total){
+    private void register2(final String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total, int bollos, int donas, int pastes){
         String idCliente = mAut.getCurrentUser().getUid();
         //mDialog.hide();
 
-        Pedido pedido = new Pedido(idCliente, nombre, mOrigin, numero, roles, conchas, panques, enCamino, total, mOriginLatLng.latitude, mOriginLatLng.longitude);
+        Pedido pedido = new Pedido(idCliente, nombre, mOrigin, numero, roles, conchas, panques, enCamino, total, mOriginLatLng.latitude, mOriginLatLng.longitude, bollos,donas,panques);
         create2(pedido);
     }
 

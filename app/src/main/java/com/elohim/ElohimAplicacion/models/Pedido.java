@@ -13,8 +13,12 @@ public class Pedido {
     float total;
     double destinoLatitud;
     double destinoLongitud;
+    int bollos;
+    int donas;
+    int pastes;
 
-    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total,double destinoLatitud,double destinoLongitud) {
+    //Registrar
+    public Pedido(String idCliente, String nombre, String direccion, String numero, int roles, int conchas, int panques, boolean enCamino, float total,double destinoLatitud,double destinoLongitud, int bollos, int donas, int pastes) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -26,6 +30,9 @@ public class Pedido {
         this.total = total;
         this.destinoLatitud = destinoLatitud;
         this.destinoLongitud = destinoLongitud;
+        this.bollos = bollos;
+        this.donas = donas;
+        this.pastes = pastes;
     }
 
     public Pedido(){
@@ -141,5 +148,29 @@ public class Pedido {
 
     public void setDestinoLongitud(double destinoLongitud) {
         this.destinoLongitud = destinoLongitud;
+    }
+
+    public int getBollos() {
+        return bollos;
+    }
+
+    public void setBollos(int bollos) {
+        this.bollos = bollos;
+    }
+
+    public int getDonas() {
+        return donas;
+    }
+
+    public void setDonas(int donas) {
+        this.donas = donas;
+    }
+
+    public int getPastes() {
+        return pastes;
+    }
+
+    public void setPastes(int pastes) {
+        this.pastes = pastes;
     }
 }

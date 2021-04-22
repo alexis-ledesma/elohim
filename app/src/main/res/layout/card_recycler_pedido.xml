@@ -91,6 +91,36 @@
             android:text="Panques: "
             android:textSize="14sp"/>
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bollos: "/>
+        <TextView
+            android:id="@+id/textViewBollosPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bollos: "
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Donas: "/>
+        <TextView
+            android:id="@+id/textViewDonasPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Donas: "
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pastes: "/>
+        <TextView
+            android:id="@+id/textViewPastesPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pastes: "
+            android:textSize="14sp"/>
+        <TextView
             android:text="Total: "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
